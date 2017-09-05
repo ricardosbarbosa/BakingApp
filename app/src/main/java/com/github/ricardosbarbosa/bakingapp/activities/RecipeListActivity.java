@@ -74,6 +74,10 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeViewH
 
         setupRecycleView();
 
+        if (Recipe.listAll(Recipe.class).isEmpty())
+            bakingAPI.listRecipes().enqueue(recipesCallback);
+
+
         mPullToRefreshView = (PullToRefreshView) findViewById(R.id.pull_to_refresh);
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override

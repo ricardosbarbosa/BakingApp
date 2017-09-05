@@ -48,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RecipeListActivity extends AppCompatActivity implements RecipeViewHolder.IRecipeViewHolder {
 
-    private static final String BASE_URL = "http://go.udacity.com/";;
+    private static final String BASE_URL = "http://go.udacity.com/";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.

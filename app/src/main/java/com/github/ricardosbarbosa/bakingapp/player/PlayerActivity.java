@@ -34,7 +34,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.ricardosbarbosa.bakingapp.BuildConfig;
 import com.github.ricardosbarbosa.bakingapp.R;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -74,8 +73,6 @@ import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
 import java.lang.reflect.Constructor;
@@ -136,14 +133,12 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
   private Object imaAdsLoader; // com.google.android.exoplayer2.ext.ima.ImaAdsLoader
   private Uri loadedAdTagUri;
   private ViewGroup adOverlayViewGroup;
-  private String userAgent;
 
   // Activity lifecycle
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    userAgent = Util.getUserAgent(this, "ExoPlayerDemo");
     shouldAutoPlay = true;
     clearResumePosition();
     mediaDataSourceFactory = buildDataSourceFactory(true);
@@ -291,7 +286,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
 
       boolean preferExtensionDecoders = intent.getBooleanExtra(PREFER_EXTENSION_DECODERS, false);
       @DefaultRenderersFactory.ExtensionRendererMode int extensionRendererMode =
-          useExtensionRenderers()
+          ((DemoApplication) getApplication()).useExtensionRenderers()
               ? (preferExtensionDecoders ? DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
               : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON)
               : DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF;
@@ -431,7 +426,8 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
    * @return A new DataSource factory.
    */
   private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
-    return buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+    return ((DemoApplication) getApplication())
+        .buildDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
   }
 
   /**
@@ -442,7 +438,8 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
    * @return A new HttpDataSource factory.
    */
   private HttpDataSource.Factory buildHttpDataSourceFactory(boolean useBandwidthMeter) {
-    return buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
+    return ((DemoApplication) getApplication())
+        .buildHttpDataSourceFactory(useBandwidthMeter ? BANDWIDTH_METER : null);
   }
 
   /**
@@ -653,19 +650,5 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
     }
     return false;
   }
-
-  public DataSource.Factory buildDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
-    return new DefaultDataSourceFactory(this, bandwidthMeter,
-            buildHttpDataSourceFactory(bandwidthMeter));
-  }
-
-  public HttpDataSource.Factory buildHttpDataSourceFactory(DefaultBandwidthMeter bandwidthMeter) {
-    return new DefaultHttpDataSourceFactory(userAgent, bandwidthMeter);
-  }
-
-  public boolean useExtensionRenderers() {
-    return BuildConfig.FLAVOR.equals("withExtensions");
-  }
-
 
 }

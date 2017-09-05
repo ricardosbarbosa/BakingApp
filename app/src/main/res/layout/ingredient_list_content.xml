@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="16dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        tools:text="Farinha"
+        android:id="@+id/ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/quantity"
+        android:layout_toStartOf="@+id/quantity"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"/>
+
+    <TextView
+        tools:text="5"
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/measure"
+        android:layout_toStartOf="@+id/measure" />
+
+    <TextView
+        tools:text="Cups"
+        android:id="@+id/measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:layout_marginLeft="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp" />
+</RelativeLayout>
